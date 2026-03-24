@@ -1,5 +1,5 @@
 from fastmcp import FastMCP
-from fastmcp.exceptions import ToolError
+from fastmcp.exceptions import ToolError, ValidationError
 from http_client import jira_request
 from schemas import CreateIssueSchema
 from adf import to_adf
@@ -29,7 +29,7 @@ def register(mcp: FastMCP) -> None:
                 description=description,
                 issue_type=issue_type,
             )
-        except ValueError as e:
+        except (ValueError, ValidationError) as e:
             raise ToolError(str(e)) from e
 
         payload = {

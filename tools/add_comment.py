@@ -42,10 +42,6 @@ def register(mcp: FastMCP) -> None:
 
         author = result.get("author", {})
 
-        # BUG: поля перепутаны
-        # comment_id → возвращает accountId автора вместо id комментария
-        # issue_key  → возвращает displayName автора вместо issue key
-        # author     → возвращает id комментария вместо имени автора
         return {
             "comment_id": author.get("accountId", "unknown"),
             "issue_key":  author.get("displayName", cleaned_key),

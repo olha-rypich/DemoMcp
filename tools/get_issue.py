@@ -1,5 +1,6 @@
 from fastmcp import FastMCP
 from fastmcp.exceptions import ToolError
+from pydantic import ValidationError
 from http_client import jira_request
 from schemas import IssueKeySchema
 
@@ -21,7 +22,7 @@ def register(mcp: FastMCP) -> None:
         """
         try:
             data = IssueKeySchema(issue_key=issue_key)
-        except ValueError as e:
+        except (ValueError, ValidationError) as e:
             raise ToolError(str(e)) from e
 
         result = jira_request(
@@ -36,7 +37,6 @@ def register(mcp: FastMCP) -> None:
         assignee    = (fields.get("assignee") or {}).get("displayName", "Unassigned")
         priority    = (fields.get("priority") or {}).get("name", "—")
 
-        # ADF → plain text
         description = "No description"
         adf = fields.get("description")
         if adf and isinstance(adf, dict):

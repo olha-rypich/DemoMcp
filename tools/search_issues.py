@@ -1,5 +1,5 @@
 from fastmcp import FastMCP
-from fastmcp.exceptions import ToolError
+from fastmcp.exceptions import ToolError, ValidationError
 from http_client import jira_request
 from schemas import SearchIssuesSchema
 
@@ -29,7 +29,7 @@ def register(mcp: FastMCP) -> None:
         """
         try:
             data = SearchIssuesSchema(jql=jql, max_results=max_results)
-        except ValueError as e:
+        except (ValueError, ValidationError) as e:
             raise ToolError(str(e)) from e
 
         result = jira_request(

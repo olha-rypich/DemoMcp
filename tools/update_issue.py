@@ -1,5 +1,5 @@
 from fastmcp import FastMCP
-from fastmcp.exceptions import ToolError
+from fastmcp.exceptions import ToolError, ValidationError
 from http_client import jira_request
 from schemas import UpdateIssueSchema
 from adf import to_adf
@@ -31,7 +31,7 @@ def register(mcp: FastMCP) -> None:
                 summary=summary,
                 description=description,
             )
-        except ValueError as e:
+        except (ValueError, ValidationError) as e:
             raise ToolError(str(e)) from e
 
         if data.summary is None and data.description is None:
