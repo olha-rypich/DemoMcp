@@ -1,4 +1,3 @@
-# adf.py
 
 def to_adf(text: str) -> dict:
     if not text:

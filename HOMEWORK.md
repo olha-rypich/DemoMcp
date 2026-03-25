@@ -1,12 +1,12 @@
 # Homework: Testing Jira MCP Server
 
-> *The server contains 2 intentionally hidden bugs. Find them.*
-
 **Cycle:** find → reproduce → automate 
 
 ---
 
 ## Task 1 — Manual Testing
+
+Precondition: set up your own Atlassian account and create free jira project
 
 Use **MCP Inspector** or **Postman** to manually test all 7 tools.
 
